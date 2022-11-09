@@ -1,0 +1,2 @@
+Compile script: gcc -o {name-of-compiled-file} {name-of-file-being-compiled}.c -lm
+Run code: ./{path-to-compiled-file}

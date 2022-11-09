@@ -121,40 +121,37 @@ Call it from the main() function below */
 
 int main()
 {
-
-    int testInteger;
-    printf("Enter an integer: ");
-    scanf("%d", &testInteger);  
-    printf("Number = %d",testInteger);
     
-    // // Define VRef
+    // Define VRef
 
-    // float VRef = 5.0;
+    float VRef = 5.0;
 
-    // // Define Thermistor constants
+    // Define Thermistor constants
 
-    // float baseline_temperature = 298.15; //Kelvin
-    // int baseline_resistance = 10; //kOhm
-    // int B = 3975; //Kelvin
+    float baseline_temperature = 298.15; //Kelvin
+    int baseline_resistance = 10; //kOhm
+    int B = 3975; //Kelvin
 
-    // // User input for one pin value to test all outputs
+    // User input for one pin value to test all outputs
 
-    // int ADC_value;
+    int ADC_value;
 
-    // printf("Enter an ADC value (0-1023):\n");
-    // scanf("%d", &ADC_value);
+    printf("Enter an ADC value (0-1023): ");
+    scanf("%d", &ADC_value);
 
     // while (scanf("%d", &ADC_value) != 1 && ADC_value < 1024) {
     //     fprintf(stderr, "Input not recognised as an integer, please try again.");
     //     printf("Enter an ADC value (0-1023): ");
     // }
 
-    // printf("%d", ADC_value);
+    printf("Entered value: %d\n", ADC_value);
     
 
-    // // Calculate thermistor temperature in degrees C ( Part b, i,ii,iii & v)
+    // Calculate thermistor temperature in degrees C ( Part b, i,ii,iii & v)
 
-    // float voltage = ADC_to_voltage(ADC_value, &VRef);
+    float voltage = ADC_to_voltage(ADC_value, &VRef);
+
+    printf("voltage: %f\n", voltage);
 
 
     // Calculate thermocouple temperature in degrees C ( Part c, i - iv)
