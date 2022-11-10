@@ -157,11 +157,15 @@ int main(int argc, const char * argv[])
 
     // Calculate thermocouple temperature in degrees C ( Part c, i - iv)
 
+    double raw_thermocouple_voltage = (voltage - 0.35)/54.4;
+
+    double compensation_voltage = NISTdegCtoMilliVoltsKtype(temperature_celsius);
     
+    double hot_junction_temp = NISTmilliVoltsToDegCKtype(compensation_voltage);
 
     // Output results
     printf("Thermistor temperature (deg C): %f \n", temperature_celsius);
-    // printf("Thermocouple temperature with CJC (deg C): %f \n", ******);
+    printf("Thermocouple temperature with CJC (deg C): %f \n", hot_junction_temp);
 
     return 0;
 }
