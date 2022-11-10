@@ -106,10 +106,12 @@ float NISTmilliVoltsToDegCKtype(float tcEMFmV)
 /* Write a function here to convert ADC value to voltages. (Part a, equation 1)
 Call it from the main() function below */
 
-int ADC_to_voltage(float ADC_value, float *VRef) {
+float ADC_to_voltage(float ADC_value, float VRef) {
     float voltage;
 
-    voltage = (ADC_value * *VRef) / 1024;
+    // printf("ADC value: %f; VRef: %f", ADC_value, VRef);
+
+    voltage = (ADC_value * VRef) / 1024.0;
 
     return voltage;
 }
@@ -117,9 +119,11 @@ int ADC_to_voltage(float ADC_value, float *VRef) {
 /* Write a function to convert degrees K to degrees C  (Part b, (iv))
 Call it from the main() function below */
 
+float KelvinToCelsius(double kelvin){
+    return kelvin - 273.15;
+}
 
-
-int main()
+int main(int argc, const char * argv[])
 {
     
     // Define VRef
@@ -134,30 +138,29 @@ int main()
 
     // User input for one pin value to test all outputs
 
-    int ADC_value;
+    float ADC_value;
 
     printf("Enter an ADC value (0-1023): ");
-    scanf("%d", &ADC_value);
+    scanf("%f", &ADC_value);
 
-    // while (scanf("%d", &ADC_value) != 1 && ADC_value < 1024) {
-    //     fprintf(stderr, "Input not recognised as an integer, please try again.");
-    //     printf("Enter an ADC value (0-1023): ");
-    // }
-
-    printf("Entered value: %d\n", ADC_value);
-    
+    // printf("Entered value: %f\n", ADC_value);
 
     // Calculate thermistor temperature in degrees C ( Part b, i,ii,iii & v)
 
-    float voltage = ADC_to_voltage(ADC_value, &VRef);
+    float voltage = ADC_to_voltage(ADC_value, VRef);
 
-    printf("voltage: %f\n", voltage);
+    double resistance = (10*3.3)/voltage - 10;
+    
+    double temperature_kelvin = pow(1/baseline_temperature+1/B * log(resistance/baseline_resistance), -1);
 
+    double temperature_celsius = KelvinToCelsius(temperature_kelvin);
 
     // Calculate thermocouple temperature in degrees C ( Part c, i - iv)
 
+    
+
     // Output results
-    // printf("Thermistor temperature (deg C): %f \n", *******);
+    printf("Thermistor temperature (deg C): %f \n", temperature_celsius);
     // printf("Thermocouple temperature with CJC (deg C): %f \n", ******);
 
     return 0;
